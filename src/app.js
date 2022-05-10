@@ -4,11 +4,11 @@ require('dotenv').config();
 
 const app = express();
 
+const router = require('./routers/router');
+
 const port = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+router(app)
 
 
 app.listen(port, () => {
