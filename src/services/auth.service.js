@@ -8,6 +8,8 @@ const validateData = require('../modules/ValidateData.module')
 
 const KEY = keyModule.KEY_API.AUTH
 
+const tokenService = require('../services/token.service')
+
 const adminModel = require('../models/admin.model')
 
 module.exports = class AuthService {
@@ -37,6 +39,8 @@ module.exports = class AuthService {
 
         body.password = passwordHashed
         const admin = await adminModel.create(body)
+
+        const createTokenJwt = await tokenService.endCodeToken(admin._id)
 
         this.setMessage(messengerModule.OK_CREATE)
         return admin

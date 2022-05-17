@@ -6,6 +6,13 @@ const adminSchema = new Schema({
     password: { type: String, require: true },
     fullName: { type: String, require: true },
     phone: { type: String, require: true },
+    isActive: { type: Boolean, default: true },
+    isBin: { type: Boolean, default: false },
+    isDelete: { type: Boolean, default: false },
+    dateCreated: { type: Date, default: Date.now() },
+    dateEdited: { type: Date, default: Date.now() },
+    dateLogin: { type: Date, default: Date.now() },
+    isEmail: { type: Boolean, default: false }
 })
 
 module.exports = mongoose.model('Admin', adminSchema)
