@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const bcrypt = require('bcryptjs');
 
 const adminSchema = new Schema({
     email: { type: String, require: true },
@@ -14,5 +15,13 @@ const adminSchema = new Schema({
     dateLogin: { type: Date, default: Date.now() },
     isEmail: { type: Boolean, default: false }
 })
+adminSchema.methods.isValidPassword = async function(newPassword) {
+    try {
+        return await bcrypt.compare(newPassword, this.password);
+    } catch (error) {
+        throw new Error(error)
+    }
+
+}
 
 module.exports = mongoose.model('Admin', adminSchema)

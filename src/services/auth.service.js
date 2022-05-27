@@ -10,7 +10,7 @@ const KEY = keyModule.KEY_API.AUTH
 
 const tokenService = require('../services/token.service')
 
-const adminModel = require('../models/admin.model')
+const adminModel = require('../models/admin.model');
 
 module.exports = class AuthService {
     static async signUp(query, body) {
@@ -40,10 +40,22 @@ module.exports = class AuthService {
         body.password = passwordHashed
         const admin = await adminModel.create(body)
 
-        const createTokenJwt = await tokenService.endCodeToken(admin._id)
-
         this.setMessage(messengerModule.OK_CREATE)
         return admin
+    }
+
+
+    static async signIn(user) {
+
+        const token = await tokenService.endCodeToken(user._id)
+        this.setMessage(messengerModule.OK_CREATE)
+        return { token }
+    }
+
+    static async secret(user) {
+
+        this.setMessage(messengerModule.OK_DATA)
+        return user
     }
 
     static async IsValid(auth) {

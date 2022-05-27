@@ -5,7 +5,7 @@ module.exports = class TokenService {
         return jwt.sign({
             sub: adminID,
             iat: new Date().getTime(),
-            exp: new Date().setTime(new Date().getDate() + 3)
+            exp: new Date().setDate(new Date().getDate() + 3)
         }, JWT_SECRET)
     }
 }
