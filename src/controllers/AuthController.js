@@ -19,7 +19,6 @@ module.exports = class AuthController {
 
     static async secret(req, res) {
         try {
-            console.log(req);
             const secret = await authService.secret(req.user)
             if (secret) {
                 res.status(StatusCodes.CREATED).json(apiReturnModule.outputObject(false, StatusCodes.CREATED, authService.getMessage(), secret))
